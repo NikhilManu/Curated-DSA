@@ -1,4 +1,5 @@
 # Time O(M * N * (4^s)) | Space O(M * N)
+# Time Complexity : https://cs.stackexchange.com/questions/96626/whats-the-big-o-runtime-of-a-dfs-word-search-through-a-matrix
 
 def exist(board, word):
     for i in range(len(board)):
