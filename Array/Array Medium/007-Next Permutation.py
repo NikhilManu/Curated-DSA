@@ -8,8 +8,7 @@ def nextPermutation(nums):
         nums.reverse()
         return
     
-    idxToSwap = getIdxToSwapWithPivot(pivot, nums)
-    swap(pivot, idxToSwap, nums)
+    getElementToSwapWithPivot(pivot, nums)
     reverse(pivot, nums)
 
 def getPivotIdx(nums):
@@ -18,12 +17,12 @@ def getPivotIdx(nums):
             return i    
     return -1
 
-def getIdxToSwapWithPivot(start, nums):
-    pivotValue, diff = nums[start], float('inf')
-    for i in range(start, len(nums)):
+def getElementToSwapWithPivot(pivot, nums):
+    pivotValue, diff = nums[pivot], float('inf')
+    for i in range(pivot, len(nums)):
         if abs(pivotValue - nums[i]) <= diff and nums[i] > pivotValue:
             idxToSwap = i
-    return idxToSwap
+    swap(pivot, idxToSwap, nums)
 
 def reverse(pivot, nums):
     left, right = pivot + 1, len(nums) - 1
