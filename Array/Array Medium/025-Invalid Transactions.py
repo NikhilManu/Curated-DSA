@@ -30,6 +30,42 @@ def invalidTransactions(transactions):
     return result
 
 # Improved Solution - Sort by time and Do sliding windows between range of 60 minutes for each name
-# Cant seem to code this idea. Will learn and code it 
 
+# O(N^2) Worst Time (if every element is inside 60 minute window) | O(NlogN) Average Time
+# O(N) Space
+def invalidTransactions(transactions):
+    transactions = [ Transaction(transaction.split(',')) for transaction in transactions ]
+    transactions.sort(key=lambda transaction: transaction.time)
+    
+    transactionByName = getTransactionsByName(transactions)  # key: name, value: indices[]
+    result = []
 
+    for name in transactionByName:
+        indices =transactionByName[name]  # Have index of transaction with same name
+        left, right = 0, 0
+        for idx in indices:
+            transaction = transactions[idx]
+            if transaction.amount > 1000:
+                result.append(transaction.toString())
+                continue
+            
+            while left < len(indices) and transactions[indices[left]].time < transaction.time - 60:
+                left += 1
+            
+            while right < len(indices) and transactions[indices[right]].time <= transaction.time + 60:
+                right += 1
+                
+            for i in range(left, right):
+                if transaction.city != transactions[indices[i]].city:
+                    result.append(transaction.toString())
+                    break
+    return result
+
+def getTransactionsByName(transactions):
+    transactionByName = {}
+    for idx, transaction in enumerate(transactions):
+        if transaction.name not in transactionByName:
+            transactionByName[transaction.name] = []        
+        transactionByName[transaction.name].append(idx)
+
+    return transactionByName
