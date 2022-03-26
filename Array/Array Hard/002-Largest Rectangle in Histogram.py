@@ -5,7 +5,7 @@ def largestRectangle(heights):
     for idx, height in enumerate(heights + [0]):
         while stack and heights[stack[-1]] >= height:
             h = heights[stack.pop()]
-            l = idx if not stack else idx - stack[-1] - 1
+            l = idx if not stack else idx - stack[-1] - 1 # if stack is empty then it means every height before current height is greater
             maxArea = max(maxArea, h * l)
         stack.append(idx)
     return maxArea
