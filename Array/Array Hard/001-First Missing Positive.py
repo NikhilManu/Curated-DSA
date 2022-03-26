@@ -30,3 +30,7 @@ Intution:
     => Then, we are making index to negative if we visit any number. (if we get a number 3, then we will make index 2 to negative)
     => Now iterate throught the array and find the first index with positive number
 """
+
+# Time O(N) | Space O(1)
+
+# Do a cyclic sort and check if every index have value index + 1
