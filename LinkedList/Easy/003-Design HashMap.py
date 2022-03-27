@@ -1,6 +1,6 @@
 # Same Concept as HashSet
 
-# Resizable HashMap with loadFactor as 75%
+# Resizable HashMap with loadFactor as 75% (Collision Resolving Technique used--> Chaining)
 class MyHashMap:
     
     def __init__(self):

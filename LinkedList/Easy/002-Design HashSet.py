@@ -7,7 +7,7 @@
 Another Improvement we can come with is to implement some Red Black Tree (Self balancing Binary Tree) inside each buckets.
 But the important concept here is chaining and how the hashSet works
 """
-# Basic HashSet with Chaining
+# Basic HashSet with Chaining as Collision resolving Technique
 class MyHashSet:
     def __init__(self):
         self.size = 15000
@@ -33,7 +33,7 @@ class MyHashSet:
         return self.buckets[i] and key in self.buckets[i]
 
 
-# Resizable HashSet with Chaining with Load Factor as 75%
+# Resizable HashSet with Chaining
 class MyHashSet:
     def __init__(self):
         self.size = 16
