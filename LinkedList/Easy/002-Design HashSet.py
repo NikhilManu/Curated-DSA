@@ -1,7 +1,7 @@
 """
  Before starting this question you should know
     => hashing functions and what they do
-    => what are collisions  --> we are using chaining
+    => what are collisions --> Resolving Techniques are Chaining, Open Addressing
     => load factor
 
 Another Improvement we can come with is to implement some Red Black Tree (Self balancing Binary Tree) inside each buckets.
@@ -33,7 +33,7 @@ class MyHashSet:
         return self.buckets[i] and key in self.buckets[i]
 
 
-# Resizable HashSet with Chaining
+# Resizable HashSet with Chaining with Load Factor as 75%
 class MyHashSet:
     def __init__(self):
         self.size = 16
@@ -44,7 +44,7 @@ class MyHashSet:
     def hash(self, key):
         return key % self.size
     
-    def reHash(self, key):
+    def reHash(self):
         self.size *= 2
         newBucket = [None] * self.size
         for bucket in self.buckets:
@@ -63,7 +63,7 @@ class MyHashSet:
             return
         
         if self.loadFactor * self.size == self.count:
-            self.reHash(key)
+            self.reHash()
             
         i = self.hash(key)
         if not self.buckets[i]:
