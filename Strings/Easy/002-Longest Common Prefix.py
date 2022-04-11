@@ -5,8 +5,6 @@ def longestCommonPrefix(strs):
     if not strs: return ''
     prefix = strs[0] # Can find the shortest string in array 
     for string in strs:
-        if not prefix:
-            return ''
         while prefix and prefix != string[:len(prefix)]:
             prefix = prefix[:len(prefix) - 1] 
             
