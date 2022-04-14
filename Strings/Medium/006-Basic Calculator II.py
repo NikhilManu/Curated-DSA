@@ -1,19 +1,43 @@
 # Time O(N) | Space O(N)
 
 def calculator(s):
-    num, stack, sign = 0, [], '+'
+    num, stack, prevSign = 0, [], '+'
+    for i, val in enumerate(s):
+        if val.isdigit():
+            num = num * 10 + int(val)
+        if val in '+-*/' or i == len(s) - 1:
+            if prevSign == '+':
+                stack.append(num)
+            elif prevSign == '-':
+                stack.append(-num)
+            elif prevSign == '*':
+                stack.append(stack.pop() * num)
+            else:
+                stack.append(int(stack.pop() / num))
+            num, prevSign = 0, val # reset 
+
+    return sum(stack)
+
+# Time O(N) | Space O(1)
+# Instead of summing the stack at last just add the number with a variable
+
+def calculator(s):
+    num, sign = 0, '+'
+    result, lastNumber = 0, 0
     for i, val in enumerate(s):
         if val.isdigit():
             num = num * 10 + int(val)
         if val in '+-*/' or i == len(s) - 1:
             if sign == '+':
-                stack.append(num)
+                result += lastNumber
+                lastNumber = num
             elif sign == '-':
-                stack.append(-num)
+                result += lastNumber
+                lastNumber = -num
             elif sign == '*':
-                stack.append(stack.pop() * num)
+                lastNumber *= num
             else:
-                stack.append(int(stack.pop() / num))
+                lastNumber = int(lastNumber / num)
             num, sign = 0, val # reset 
-            
-    return sum(stack)
+
+    return result + lastNumber
