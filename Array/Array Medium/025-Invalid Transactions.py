@@ -37,35 +37,34 @@ def invalidTransactions(transactions):
     transactions = [ Transaction(transaction.split(',')) for transaction in transactions ]
     transactions.sort(key=lambda transaction: transaction.time)
     
-    transactionByName = getTransactionsByName(transactions)  # key: name, value: indices[]
+    transactionByName = getTransactionsByName(transactions)  # key: name, value: transaction[]
     result = []
 
     for name in transactionByName:
-        indices =transactionByName[name]  # Have index of transaction with same name
+        transactions = transactionByName[name]  # Have details of transaction having same name
         left, right = 0, 0
-        for idx in indices:
-            transaction = transactions[idx]
+        for transaction in transactions:
             if transaction.amount > 1000:
                 result.append(transaction.toString())
                 continue
             
-            while left < len(indices) and transactions[indices[left]].time < transaction.time - 60:
+            while left < len(transactions) and transactions[left].time < transaction.time - 60:
                 left += 1
             
-            while right < len(indices) and transactions[indices[right]].time <= transaction.time + 60:
+            while right < len(transactions) and transactions[right].time <= transaction.time + 60:
                 right += 1
                 
             for i in range(left, right):
-                if transaction.city != transactions[indices[i]].city:
+                if transaction.city != transactions[i].city:
                     result.append(transaction.toString())
                     break
     return result
 
 def getTransactionsByName(transactions):
     transactionByName = {}
-    for idx, transaction in enumerate(transactions):
+    for transaction in transactions:
         if transaction.name not in transactionByName:
             transactionByName[transaction.name] = []        
-        transactionByName[transaction.name].append(idx)
+        transactionByName[transaction.name].append(transaction)
 
     return transactionByName
