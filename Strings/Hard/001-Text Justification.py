@@ -24,24 +24,25 @@ def textJustification(words, maxWidth):
     
 def middleJustify(words, remainingSpace, i, j):
     spacesNeeded = j - i - 1
-    spaces = remainingSpace // spacesNeeded
+    spaceAfterWords = remainingSpace // spacesNeeded
     extraSpaces = remainingSpace % spacesNeeded
     
-    res = words[i]
-    for k in range(i + 1, j):
-        spacesToApply = spaces + ( 1 if extraSpaces > 0 else 0 )
+    res = []
+    for idx in range(i, j):
+        spacesToApply = spaceAfterWords + ( 1 if extraSpaces > 0 else 0 )
         extraSpaces -= 1
-
-        res += ' ' * spacesToApply + words[k]
         
-    return res
+        res.append(words[idx])
+        res.append('' if idx == j - 1 else ' ' * spacesToApply)
+        
+    return ''.join(res)
         
 def leftJustify(words, remainingSpace, i, j):
     spacesOnRight = remainingSpace - (j - i - 1) # we have to subtract common space from remainingSpace, so we can add extra to RightSide
     
-    res = words[i]
-    for k in range(i + 1, j):
-        res += ' ' + words[k]
+    res = []
+    for idx in range(i, j):
+        res.append(words[idx] if idx == j - 1 else words[idx] + ' ')
         
-    res += ' ' * spacesOnRight
-    return res
+    res.append(' ' * spacesOnRight)
+    return ''.join(res)
