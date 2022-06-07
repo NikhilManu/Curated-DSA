@@ -1,4 +1,4 @@
-# Time O() | Space O()
+# Time O(2 ^ n) | Space O(n)
 def stringConcatenation(arr):
     return helper(0, arr, 0, set())
 
