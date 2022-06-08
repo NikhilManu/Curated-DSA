@@ -1,4 +1,4 @@
-# Time O() | Space O()
+# Time O(M * N * (4^k)) | Space O(k)
 def present(board, word, n, m):
     for i in range(n):
         for j in range(m):
