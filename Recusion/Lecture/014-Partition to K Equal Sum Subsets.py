@@ -11,7 +11,7 @@ def helper(i, bucketNum, bucketSum, reqSum, k, arr, seen):
         return True
     
     if bucketSum == reqSum:
-        return helper(0, bucketNum + 1, 0, reqSum, k, arr, seen)
+        return helper(0, bucketNum + 1, 0, reqSum, k, arr, seen) # index should be passed 0, as we may have skipped some elements
     
     if bucketSum > reqSum or i >= len(arr):
         return False
